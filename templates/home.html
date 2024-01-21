@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/uploads/home.css">
+    <title>Главная страница</title>
+</head>
+<body>
+    <header>
+        <h1>Buy Sell</h1>
+        <div class="sing_log">
+            {% if 'user_id' in session %}
+                <p><a href="{{ url_for('create_post') }}">Создать Объявление</a></p>
+                <p><a href="{{ url_for('logout') }}">Выйти</a></p>
+            {% else %}
+                <p><a href="{{ url_for('login') }}">Войти</a></p>
+                <p><a href="{{ url_for('register') }}">Зарегистрироваться</a></p>
+            {% endif %}
+        </div>
+    </header>
+    <main>
+        <br>
+        <br>
+        <br>
+        <div class="search_filter">
+            <div class="select_category">
+                <form method="POST" action="/filter">
+                    <b><label for="category">Выберите категорию:</label></b>
+                    <br>
+                    <br>
+                    <select class="category" name="category" required>
+                        <option value="">Выберите категорию</option>
+                            <optgroup label="Транспорт">
+                                <option  value="moto">Мотоциклы и мототехника</option>
+                                <option  value="truck">Грузовики и спецтехника</option>
+                                <option  value="car">Автомобили</option>
+                                <option  value="water_transport">Водный транспорт</option>
+                                <option  value="spare_accessories">Запчасти и аксессуары</option>
+                                <option  value="cargo">Грузоперевозки</option>
+                                <option  value="other(trans)">Другое (Транспорт)</option>
+                            <optgroup label="Недвижимость">
+                                <option  value="apartment">Квартиры</option>
+                                <option  value="house">Дома, дачи, коттеджи</option>
+                                <option  value="rooms">Комнаты</option>
+                                <option  value="commercial">Коммерческая</option>
+                                <option  value="plot">Земельные участки</option>
+                                <option  value="garage">Гаражи и машиноместа</option>
+                            <optgroup label="Личные вещи">
+                                <option  value="w_clothing">Женская одежда, обувь</option>
+                                <option  value="m_clothing">Мужская одежда, обувь</option>
+                                <option  value="children">Детский мир</option>
+                                <option  value="beautiful">Красота и здоровье</option>
+                                <option  value="accessories">Аксессуары</option>
+                            <optgroup label="Электроника, техника">
+                                <option  value="electronics">Электроника</option>>
+                            <optgroup label="Дом и сад, мебель, бытовое">
+                                <option  value="furniture">Мебель</option>
+                                <option  value="dishes">Посуда, все для кухни</option>
+                                <option  value="garden">Сад и огород</option>
+                            <optgroup label="Животные">
+                                <option  value="dogs">Собаки</option>
+                                <option  value="cats">Кошки</option>
+                                <option  value="birds">Птицы</option>
+                                <option  value="services">Товары и услуги для животных</option>
+                                <option  value="other(animals)">Другие животные</option>
+                            <optgroup label="Услуги и предложения">
+                                <option  value="legal services">Юридические услуги</option>
+                                <option  value="accounting services">Бухгалтерские услуги</option>
+                                <option  value="equipment repair">Ремонт техники</option>
+                                <option  value="IT">IT</option>
+                                <option  value="security">Безопасность</option>
+                                <option  value="education">Образование, курсы</option>
+                                <option  value="translate">Переводы, Набор текста</option>
+                                <option  value="entertainment">Развлечение, Праздники</option>
+                                <option  value="other(services)">Другие виды услуг</option>
+                            <optgroup label="Работа">
+                                <option  value="vacancies">Вакансии</option>
+                                <option  value="resume">Резюме</option>
+                            <optgroup label="Хобби, Отдых, Спорт">
+                                <option  value="sport">Спорт, Активный отдых</option>
+                                <option  value="books">Книги и журналы</option>
+                                <option  value="collections">Коллекции</option>
+                                <option  value="music_instruments">Музыкальные инструменты</option>
+                            <optgroup label="Сырье">
+                                <option  value="metalls">Металлы</option>
+                                <option  value="oil">Нефть, газ, топливо</option>
+                                <option  value="himiya">Химия</option>
+                                <option  value="paper">Бумага, тара, упаковка</option>
+                                <option  value="other(raw)">Другое (Сырье)</option>
+                            <optgroup label="Продукты питания">
+                                <option  value="cookies">Кондитерские изделия</option>
+                                <option  value="meat">Мясо, колбасы</option>
+                                <option  value="fish">Рыба, морепродукты</option>
+                                <option  value="water">Соки, воды</option>
+                                <option  value="other(products)">Другие продукты</option>
+                    </select>
+                    <br>
+                    <input class="c_p_btn" type="submit" value="Отфильтровать">
+                    <a class="reset_a" href="{{ url_for('home') }}"><img src="/static/uploads/images/reset.png" width="30px" height="30px"></a>
+                </form>
+            </div>
+            <div class="search">
+                <form method="POST" action="/search"> 
+                    <input class="input_search" type="text" name="search" placeholder="Введите запрос...">
+                    <button type="submit" class="btn">search</button>
+                    <a class="reset_search" href="{{ url_for('home') }}"><img src="/static/uploads/images/reset.png" width="30px" height="30px"></a>
+                </form>
+            </div>
+        </div>
+        <h1 class="posts">{{ category }}</h1>
+        {% for post in posts %}
+            <div class="post">
+                <h2><a class="a_h2" href="{{ url_for('more_details', post_id=post.id) }}">Заголовок: {{ post.title }}</a></h2>
+                <p>Описание: {{ post.content }}</p>
+                <img src="/static/uploads/images/{{post.image}}" width="300px" height="300px">
+                <b><p>Цена: {{ post.price }}</p></b>
+                <b><p>Номер телефона: <a class="a_number" href="tel:+{{ post.user_number }}">{{ post.   user_number }}</a></p></b>
+                
+                {% if 'user_id' in session and session['user_id'] == post.user_id %}
+                    <div class="create_delete">
+                        <p><a href="{{ url_for('edit_post', post_id=post.id) }}">Изменить</a></p>
+                        <p><a href="{{ url_for('delete_post', post_id=post.id) }}" onclick="return confirm('Вы уверены, что хотите удалить эту запись?')">Удалить</a></p>
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        {% endfor %}
+        
+    </main>
+</body>
+</html>

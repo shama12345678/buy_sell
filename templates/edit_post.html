@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/uploads/edit_post.css">
+    <title>Изменить Объявлние</title>
+</head>
+<body>
+    <h1>Изменить Объявлние</h1>
+    <form method="POST" action="{{ url_for('edit_post', post_id=post.id) }}" enctype="multipart/form-data">
+        <b><label for="category">Выберите категорию:</label></b>
+        <select class="category" name="category" required>
+            <option value="{{ post.category }}">Выберите категорию</option>
+                <optgroup label="Транспорт">
+                    <option  value="moto">Мотоциклы и мототехника</option>
+                    <option  value="truck">Грузовики и спецтехника</option>
+                    <option  value="car">Автомобили</option>
+                    <option  value="water_transport">Водный транспорт</option>
+                    <option  value="spare_accessories">Запчасти и аксессуары</option>
+                    <option  value="cargo">Грузоперевозки</option>
+                    <option  value="other(trans)">Другое (Транспорт)</option>
+                <optgroup label="Недвижимость">
+                    <option  value="apartment">Квартиры</option>
+                    <option  value="house">Дома, дачи, коттеджи</option>
+                    <option  value="rooms">Комнаты</option>
+                    <option  value="commercial">Коммерческая</option>
+                    <option  value="plot">Земельные участки</option>
+                    <option  value="garage">Гаражи и машиноместа</option>
+                <optgroup label="Личные вещи">
+                    <option  value="w_clothing">Женская одежда, обувь</option>
+                    <option  value="m_clothing">Мужская одежда, обувь</option>
+                    <option  value="children">Детский мир</option>
+                    <option  value="beautiful">Красота и здоровье</option>
+                    <option  value="accessories">Аксессуары</option>
+                <optgroup label="Электроника, техника">
+                    <option  value="electronics">Электроника</option>>
+                <optgroup label="Дом и сад, мебель, бытовое">
+                    <option  value="furniture">Мебель</option>
+                    <option  value="dishes">Посуда, все для кухни</option>
+                    <option  value="garden">Сад и огород</option>
+                <optgroup label="Животные">
+                    <option  value="dogs">Собаки</option>
+                    <option  value="cats">Кошки</option>
+                    <option  value="birds">Птицы</option>
+                    <option  value="services">Товары и услуги для животных</option>
+                    <option  value="other(animals)">Другие животные</option>
+                <optgroup label="Услуги и предложения">
+                    <option  value="legal services">Юридические услуги</option>
+                    <option  value="accounting services">Бухгалтерские услуги</option>
+                    <option  value="equipment repair">Ремонт техники</option>
+                    <option  value="IT">IT</option>
+                    <option  value="security">Безопасность</option>
+                    <option  value="education">Образование, курсы</option>
+                    <option  value="translate">Переводы, Набор текста</option>
+                    <option  value="entertainment">Развлечение, Праздники</option>
+                    <option  value="other(services)">Другие виды услуг</option>
+                <optgroup label="Работа">
+                    <option  value="vacancies">Вакансии</option>
+                    <option  value="resume">Резюме</option>
+                <optgroup label="Хобби, Отдых, Спорт">
+                    <option  value="sport">Спорт, Активный отдых</option>
+                    <option  value="books">Книги и журналы</option>
+                    <option  value="collections">Коллекции</option>
+                    <option  value="music_instruments">Музыкальные инструменты</option>
+                <optgroup label="Сырье">
+                    <option  value="metalls">Металлы</option>
+                    <option  value="oil">Нефть, газ, топливо</option>
+                    <option  value="himiya">Химия</option>
+                    <option  value="paper">Бумага, тара, упаковка</option>
+                    <option  value="other(raw)">Другое (Сырье)</option>
+                <optgroup label="Продукты питания">
+                    <option  value="cookies">Кондитерские изделия</option>
+                    <option  value="meat">Мясо, колбасы</option>
+                    <option  value="fish">Рыба, морепродукты</option>
+                    <option  value="water">Соки, воды</option>
+                    <option  value="other(products)">Другие продукты</option>
+        </select>
+        <br>
+        <br>    
+        <label for="title">Заголовок:</label>
+        <input type="text" name="title" value="{{ post.title }}" required>
+        <br>
+        <br>
+        <label for="content">Описание:</label>
+        <textarea rows="3" cols="30" name="content" required>{{ post.content }}</textarea>
+        <br>
+        <br>
+        <label for="price">Цена:</label>
+        <input type="number" name="price" value="{{ post.price }}" required>
+        <br>
+        <br>
+        <label for="file">Фото товара:</label>
+        <input type="file" name="file">
+        <br>
+        <br>
+        <b><label for="number">Номер телефона:</label></b>
+        <input type="number" name="number" value="{{ post.user_number }}" required>
+        <br>
+        <br>
+        <input class="c_p_btn" type="submit" value="Изменить Пост">
+    </form>
+    <p><a href="{{ url_for('home') }}">Вернуться на Главную</a></p>
+</body>
+</html>
